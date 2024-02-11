@@ -3,6 +3,7 @@ package com.faidterence.springbootlearn.student;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
@@ -21,21 +22,22 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient
     private Integer date;
 
-    public Student(Integer id, String name, String email, LocalDate dob, Integer date) {
+    public Student(Integer id, String name, String email, LocalDate dob) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.date = date;
+
     }
 
-    public Student(String name, String email, LocalDate dob, Integer date) {
+    public Student(String name, String email, LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.date = date;
+
     }
 
     public Student() {
@@ -73,11 +75,11 @@ public class Student {
         this.dob = dob;
     }
 
-    public Integer getDate() {
-        return date;
+    public Integer getAge() {
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
-    public void setDate(Integer date) {
+    public void seAge(Integer date) {
         this.date = date;
     }
 
@@ -88,7 +90,7 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
-                ", date=" + date +
+                ", age=" + date +
                 '}';
     }
 }
