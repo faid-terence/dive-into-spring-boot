@@ -3,9 +3,8 @@ package com.faidterence.springbootlearn.student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -59,5 +58,19 @@ public class StudentService {
 
         studentRepository.save(existingStudent);
     }
+    public void getStudentById(Integer studentId) {
+        // Retrieve the student record from the database based on the provided studentId
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+
+        // Check if the student record exists
+        if (studentOptional.isPresent()) {
+            // If the student exists, return the student object
+            studentOptional.get();
+        } else {
+            // If the student does not exist, throw an exception
+            throw new NoSuchElementException("Student with ID " + studentId + " not found");
+        }
+    }
+
 
 }
