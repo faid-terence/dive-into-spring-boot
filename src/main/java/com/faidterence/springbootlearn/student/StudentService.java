@@ -40,4 +40,24 @@ public class StudentService {
         studentRepository.deleteById(studentId);
 
     }
+
+
+    public void updateStudent(Integer studentId, Student newStudentData) {
+        boolean exists = studentRepository.existsById(studentId);
+        if (!exists) {
+            throw new IllegalStateException("Student with ID " + studentId + " does not exist");
+        }
+
+        // Fetch the existing student record from the database
+        Student existingStudent = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("Student with ID " + studentId + " not found"));
+
+        // Update the existing student record with new data
+        existingStudent.setName(newStudentData.getName());
+        existingStudent.setEmail(newStudentData.getEmail());
+        existingStudent.setDob(newStudentData.getDob());
+
+        studentRepository.save(existingStudent);
+    }
+
 }
