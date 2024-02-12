@@ -8,7 +8,7 @@ import java.time.Month;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/students")
+@RequestMapping(path = "/api/v1/students/")
 public class StudentController {
 
     private final StudentService studentService;
@@ -27,10 +27,11 @@ public class StudentController {
         studentService.addNewStudent(student);
     }
 
-    @DeleteMapping(path = {"studentId"})
-    public void deleteStudent(@PathVariable ("studentId") Integer studentId) {
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Integer studentId) {
         studentService.deleteStudent(studentId);
     }
+
 
 
 
